@@ -6,12 +6,14 @@
 #include <iomanip>
 using namespace std;
 
-//function prototype
-double getPayment(int, double, int);
+
+void getPayment(int, double, int, double &);
+
 
 int main()
 {
-    //declare variables
+   
+    
     int carPrice = 0;
     int rebate = 0;
     double creditRate = 0.0;
@@ -20,6 +22,7 @@ int main()
     double creditPayment = 0.0;
     double dealerPayment = 0.0;
 
+    
     cout << "Car price (after any trade-in): ";
     cin >> carPrice;
     cout << "Rebate: ";
@@ -31,11 +34,13 @@ int main()
     cout << "Term in years: ";
     cin >> term;
 
-    //call function to calculate payments
-    creditPayment = getPayment(carPrice - rebate,
-        creditRate / 12, term * 12);
-    dealerPayment = getPayment(carPrice, 
-        dealerRate / 12, term * 12);    //assign values to calculate payments
+    
+    // calculations for payment 
+    getPayment(carPrice - rebate,
+        creditRate / 12, term * 12, creditPayment);
+    getPayment(carPrice, 
+        dealerRate / 12, term * 12, dealerPayment);
+
     
     //display payments
     cout << fixed << setprecision(2) << endl; 
@@ -44,17 +49,18 @@ int main()
     cout << "Dealer payment: $"
         << dealerPayment << endl;
     
+    
     return 0;
-}//end of main function    
+}	
+//end of main function
 
-    //*****function definitions*****
-double getPayment(int prin,
+
+//*****function definitions*****
+void getPayment(int prin,
                   double monthRate, 
-                  int months)
+                  int months, double &monthPay)
 {
-    //calculates and returns a monthly payment
-    double monthPay = 0.0;
+    //returns monthly payment
     monthPay = prin * monthRate / 
         (1 - pow(monthRate + 1, -months));
-    return monthPay;
-} //end of getPayment function//*****function definition*****
+}	//end of getPayment function
